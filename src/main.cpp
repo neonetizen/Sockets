@@ -1,9 +1,6 @@
-#include <asio/asio.hpp>
-#include <chrono>
 #include <iostream>
 
-using asio::detached;
-using namespace std::chrono_literals;
+#include <asio.hpp>
 
 asio::awaitable<void> hello(int n) {
   auto executor = co_await asio::this_coro::executor;
@@ -20,7 +17,7 @@ asio::awaitable<void> hello(int n) {
 int main() {
   asio::io_context io;
 
-  asio::co_spawn(io, hello(3), detached);
+  asio::co_spawn(io, hello(3), asio::detached);
 
   io.run();
 }
